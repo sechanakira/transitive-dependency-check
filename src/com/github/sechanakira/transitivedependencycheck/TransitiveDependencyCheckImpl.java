@@ -27,6 +27,26 @@ public class TransitiveDependencyCheckImpl implements TransitiveDependencyCheck 
     }
 
     @Override
+    public String findInverseDependencies(String input) {
+        findDependencies(input);
+        StringBuilder sb = new StringBuilder();
+        for (String key : dependenciesHolder.keySet()) {
+            StringBuilder tmp = new StringBuilder(key);
+            List<String> deps = getDependencies(key);
+            for (String dep : deps) {
+                if (getDependencies(dep).contains(key)) {
+                    tmp.append(dep);
+                }
+            }
+            if (tmp.length() > 1) {
+                sb.append(tmp);
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    @Override
     public void register(String key, String... deps) {
         for (String dep : deps) {
             if (!checkDependent(dep, key)) {
@@ -98,7 +118,7 @@ public class TransitiveDependencyCheckImpl implements TransitiveDependencyCheck 
             sb.append(deps.stream().collect(Collectors.joining()));
             sb.append("\n");
         }
-        return sb.toString().replaceAll(" ","");
+        return sb.toString().replaceAll(" ", "");
     }
 
     @Override

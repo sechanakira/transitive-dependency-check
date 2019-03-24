@@ -14,10 +14,12 @@ public class Main {
         TransitiveDependencyCheck dependencyCheck = new TransitiveDependencyCheckImpl();
         String output = dependencyCheck.findDependencies(INPUT);
         System.out.println(output);
+        dependencyCheck.findInverseDependencies(INPUT);
     }
 
-    private static void runTests(){
+    private static void runTests() {
         TransitiveDependencyCheckTest dependencyCheckTest = new TransitiveDependencyCheckTest();
         dependencyCheckTest.testFindDependencies();
+        dependencyCheckTest.testFindInverseDependencies();
     }
 }
