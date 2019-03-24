@@ -10,8 +10,14 @@ public class Main {
             "F H";
 
     public static void main(String... args) {
+        runTests();
         TransitiveDependencyCheck dependencyCheck = new TransitiveDependencyCheckImpl();
         String output = dependencyCheck.findDependencies(INPUT);
         System.out.println(output);
+    }
+
+    private static void runTests(){
+        TransitiveDependencyCheckTest dependencyCheckTest = new TransitiveDependencyCheckTest();
+        dependencyCheckTest.testFindDependencies();
     }
 }
